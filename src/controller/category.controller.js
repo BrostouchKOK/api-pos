@@ -1,27 +1,65 @@
+const { db, logError } = require("../util/helper");
 
-const { db } = require("../util/helper")
-
-exports.getList = async (req,res) =>{
+exports.getList = async (req, res) => {
+  try {
     const [list] = await db.query("SELECT * FROM category");
     res.json({
-        list : list,
+      list: list,
     });
-}
+  } catch (error) {
+    logError("category.getList",error,res);
+  }
+};
 
-exports.create = (req,res) => {
+exports.create = async (req, res) => {
+  try{
+    const sql =  "INSERT INTO category (name,description,status) VALUES (:name,:description,:status)"; // name param
+    const [data] = await db.query(sql,{
+      name : req.body.name,
+      description : req.body.description,
+      status : req.body.status,
+    });
     res.json({
-        data : [2],
+      data : data,
+      message : "Insert Successfully!",
     })
-}
 
-exports.update = (req,res) => {
-    res.json({
-        data : [3],
-    })
-}
+  }catch(error){
+    logError("category.create",error,res);
+  }
+};
 
-exports.remove = (req,res) => {
+exports.update = async (req, res) => {
+  try{
+    const sql =  "UPDATE category name = :name, description = :description, status = :status WHERE id = :id"; // name param
+    const [data] = await db.query(sql,{
+      id : req.body.id,
+      name : req.body.name,
+      description : req.body.description,
+      status : req.body.status,
+    });
     res.json({
-        data : [4],
+      data : data,
+      message : "Update successfully!!!",
     })
-}
+
+  }catch(error){
+    logError("category.update",error,res);
+  }
+};
+
+exports.remove = async (req, res) => {
+  try{
+    const sql =  "DELETE FROM category WHERE id = :id"; // name param
+    const [data] = await db.query(sql,{
+      id : req.body.id
+    });
+    res.json({
+      data : data,
+      message : "Delete successfully!!!",
+    })
+
+  }catch(error){
+    logError("category.remove",error,res);
+  }
+};

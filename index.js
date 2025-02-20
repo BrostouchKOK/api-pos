@@ -6,15 +6,6 @@ app.use(express.json()); // allow app can work with json data
 app.use(express.urlencoded({extended:false})); // convert and pass data from api
 app.use(cors({origin: "*"})); // allow all client side request
 
-app.get("/",(req,res)=>{
-    const list = [
-        {id:1,name:"a"},
-        {id:2,name:"b"},
-    ]
-    res.json({
-        list,
-    })
-});
 
 app.get("/api/home",(req,res)=>{
     const data = [
