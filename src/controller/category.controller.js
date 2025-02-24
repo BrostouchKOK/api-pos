@@ -2,7 +2,7 @@ const { db, logError } = require("../util/helper");
 
 exports.getList = async (req, res) => {
   try {
-    const [list] = await db.query("SELECT * FROM category");
+    const [list] = await db.query("SELECT * FROM category ORDER BY id DESC");
     res.json({
       list: list,
     });
@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try{
-    const sql =  "UPDATE category name = :name, description = :description, status = :status WHERE id = :id"; // name param
+    const sql =  "UPDATE category SET name = :name, description = :description, status = :status WHERE id = :id"; // name param
     const [data] = await db.query(sql,{
       id : req.body.id,
       name : req.body.name,
