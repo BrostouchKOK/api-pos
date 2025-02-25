@@ -9,6 +9,9 @@ module.exports = {
             PASSWORD : "",
             DATABASE : "pos-phone-shop",
             PORT : 3306,
-        }
+        },
+        token : {
+            access_token_key : "KHLJLaklhgla@##$%7792u98LHlkjkjkavs%%!!#$KBT",
+        },
     }
 };

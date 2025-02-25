@@ -1,0 +1,3 @@
+[24/02/2025 21:55:18] Error: Duplicate entry 'granger' for key 'username'
+[24/02/2025 22:32:36] Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+[24/02/2025 22:39:28] Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client

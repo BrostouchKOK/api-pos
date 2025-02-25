@@ -1,2 +1,0 @@
-[19/02/2025 15:46:04] Error: Column 'status' cannot be null
-[19/02/2025 15:46:46] Error: Column 'status' cannot be null
