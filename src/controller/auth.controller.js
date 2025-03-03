@@ -32,7 +32,7 @@ const register = async (req, res) => {
 // Login Function
 const login = async (req, res) => {
   try {
-    let sql = "SELECT * FROM user  WHERE username = :username";
+    let sql = "SELECT * FROM user WHERE username = :username";
     let param = {
       username: req.body.username,
       password: req.body.password,
@@ -83,7 +83,7 @@ const profile = async (req, res) => {
   }
 };
 
-// Function Validate Token
+// Validate Token Function 
 const validate_token = () => {
   // call in midleware in rout (role rout, user rout, auth rout)
   return (req, res, next) => {
@@ -120,14 +120,14 @@ const validate_token = () => {
   };
 };
 
-// Function getAccess Token
+// getAccess Token Function
 const getAccessToken = (paramData) => {
   // const keyToken = "alhglajffl889*&#4";
   const access_token = jwt.sign(
     { data: paramData },
     config.config.token.access_token_key,
     {
-      expiresIn: "180s",
+      expiresIn: "1d",
     }
   );
   return access_token;

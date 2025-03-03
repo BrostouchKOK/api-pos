@@ -1,3 +1,0 @@
-[25/02/2025 14:45:22] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
-[25/02/2025 14:45:46] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
-[25/02/2025 14:47:11] TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))
