@@ -32,7 +32,8 @@ const register = async (req, res) => {
 // Login Function
 const login = async (req, res) => {
   try {
-    let sql = "SELECT * FROM user WHERE username = :username";
+    // let sql = "SELECT * FROM user WHERE username = :username";
+    let sql = "SELECT u.*, r.name AS role_name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.username = :username";
     let param = {
       username: req.body.username,
       password: req.body.password,
