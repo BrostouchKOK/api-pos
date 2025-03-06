@@ -4,6 +4,21 @@ const { logError } = require("../util/logError");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// getList user Function
+const getList = async (req, res) => {
+  try {
+    let sql = "SELECT u.id, u.name, u.username, u.is_active,u.create_by, r.name AS role_name  FROM user u INNER JOIN role r ON u.role_id = r.id order by id DESC";
+    let [list] = await db.query(sql);
+    let [role] = await db.query("SELECT id AS value, name AS label FROM role");
+    res.json({
+      list,
+      role,
+    });
+  } catch (error) {
+    logError("auth.getList", error, res);
+  }
+};
+
 // Register function
 const register = async (req, res) => {
   try {
@@ -17,7 +32,7 @@ const register = async (req, res) => {
       username: req.body.username,
       password: password,
       is_active: req.body.is_active,
-      create_by: req.body.create_by,
+      create_by: req.auth?.name,  
     };
     let data = await db.query(sql, param);
     res.json({
@@ -33,7 +48,8 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     // let sql = "SELECT * FROM user WHERE username = :username";
-    let sql = "SELECT u.*, r.name AS role_name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.username = :username";
+    let sql =
+      "SELECT u.*, r.name AS role_name FROM user u INNER JOIN role r ON u.role_id = r.id WHERE u.username = :username";
     let param = {
       username: req.body.username,
       password: req.body.password,
@@ -78,13 +94,12 @@ const profile = async (req, res) => {
     res.json({
       profile: req.profile,
     });
-    
   } catch (error) {
     logError("auth.profile", error, res);
   }
 };
 
-// Validate Token Function 
+// Validate Token Function
 const validate_token = () => {
   // call in midleware in rout (role rout, user rout, auth rout)
   return (req, res, next) => {
@@ -111,7 +126,7 @@ const validate_token = () => {
             });
           } else {
             req.current_id = result.data.profile.id;
-            req.profile = result.data.profile; // write user property
+            req.auth = result.data.profile; // write user property
             req.permision = result.data.permision;
             next();
           }
@@ -138,6 +153,7 @@ module.exports = {
   register,
   profile,
   login,
+  getList,
   validate_token,
   getAccessToken,
 };
