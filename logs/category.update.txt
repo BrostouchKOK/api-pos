@@ -1,0 +1,1 @@
+[07/03/2025 00:27:14] Error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE id = 1' at line 1
