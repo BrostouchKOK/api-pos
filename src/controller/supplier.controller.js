@@ -2,7 +2,19 @@ const { db, logError } = require("../util/helper");
 
 exports.getList = async (req, res) => {
   try {
-    const [list] = await db.query("SELECT * FROM supplier ORDER BY id DESC");
+    var txtSearch = req.query.txtSearch || ""; // Ensure txtSearch is defined
+    var sql = "SELECT * FROM supplier";
+
+    // Add a space before WHERE and handle potential SQL injection
+    if (txtSearch !== "") {
+      sql += " WHERE name LIKE :txtSearch OR code LIKE :txtSearch";
+    }
+
+    // Use proper query parameter handling
+    const [list] = await db.query(sql, {
+      txtSearch: `%${txtSearch}%`, // Add wildcards for LIKE query
+    });
+
     res.json({
       list: list,
     });
@@ -68,6 +80,6 @@ exports.remove = async (req, res) => {
       message: "Delete successfully!!!",
     });
   } catch (error) {
-    logError("category.remove", error, res);
+    logError("supplier.remove", error, res);
   }
 };
