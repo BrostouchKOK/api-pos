@@ -1,4 +1,4 @@
-const { db, logError } = require("../util/helper");
+const { db, logError, removeFile } = require("../util/helper");
 
 exports.getList = async (req, res) => {
   try {
@@ -90,6 +90,9 @@ exports.remove = async (req, res) => {
     const [data] = await db.query(sql, {
       id: req.body.id,
     });
+    if (data.affectedRows && req.body.image != "" && req.body.image != null) {
+      removeFile(req.body.image);
+    }
     res.json({
       data: data,
       message: "Delete successfully!!!",

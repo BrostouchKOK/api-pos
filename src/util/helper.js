@@ -2,7 +2,7 @@ const connection = require("./connection");
 const { logError } = require("./logError");
 const multer = require("multer");
 const fs = require("fs/promises");
-const {config} = require("./config");
+const { config } = require("./config");
 
 exports.db = connection;
 exports.logError = logError;
@@ -41,13 +41,13 @@ exports.uploadFile = multer({
 });
 
 // function for removeFile
-exports.removeFile = async (fileName)=>{
-    var filePath = config.image_path;
-    try{
-        await fs.unlink(filePath + fileName);
-        return "File Delete Successfully";
-    }catch(err){
-        console.error("Error Deleting File",err)
-        throw err
-    }
-}
+exports.removeFile = async (fileName) => {
+  var filePath = config.image_path;
+  try {
+    await fs.unlink(filePath + fileName);
+    return "File Delete Successfully";
+  } catch (err) {
+    console.error("Error Deleting File", err);
+    throw err;
+  }
+};
