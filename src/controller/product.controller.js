@@ -2,6 +2,8 @@ const { db, logError } = require("../util/helper");
 
 exports.getList = async (req, res) => {
   try {
+    // console.log("query",req.query);
+    var { txt_search, category_id, barcode, brand } = req.query;
     var sql = `
       SELECT 
       p.*,
@@ -9,8 +11,23 @@ exports.getList = async (req, res) => {
       FROM product p
       INNER JOIN category c
       ON p.category_id = c.id
-    `
-    const [list] = await db.query(sql);
+      WHERE TRUE
+    `;
+    if (txt_search) {
+      sql += ` AND (p.name LIKE :txt_search OR p.barcode = :barcode)`;
+    }
+    if (category_id) {
+      sql += ` AND p.category_id = :category_id`;
+    }
+    if (brand) {
+      sql += ` AND p.brand = :brand`;
+    }
+    const [list] = await db.query(sql, {
+      txt_search: "%" + txt_search + "%",
+      barcode: txt_search,
+      brand,
+      category_id,
+    });
     res.json({
       list: list,
     });

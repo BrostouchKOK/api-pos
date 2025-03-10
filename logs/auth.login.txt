@@ -1,1 +1,0 @@
-[10/03/2025 14:25:13] Error: data and hash arguments required

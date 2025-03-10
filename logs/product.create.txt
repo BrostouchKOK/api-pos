@@ -1,3 +1,0 @@
-[09/03/2025 17:38:23] Error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''no description',	qty,	price,	discount,	status,	image, create_by) VALUES ('9'...' at line 1
-[09/03/2025 17:40:04] Error: Column 'barcode' cannot be null
-[09/03/2025 17:43:35] Error: Column 'barcode' cannot be null

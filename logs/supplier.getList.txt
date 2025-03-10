@@ -1,2 +1,0 @@
-[07/03/2025 16:29:36] Error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIKE '%undefined%'' at line 1
-[07/03/2025 16:29:36] Error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIKE '%undefined%'' at line 1
