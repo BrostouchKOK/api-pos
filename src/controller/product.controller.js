@@ -2,9 +2,16 @@ const { db, logError } = require("../util/helper");
 
 exports.getList = async (req, res) => {
   try {
-    const [list] = await db.query("SELECT * FROM product ORDER BY id DESC");
+    var sql = `
+      SELECT 
+      p.*,
+      c.name AS category_name
+      FROM product p
+      INNER JOIN category c
+      ON p.category_id = c.id
+    `
+    const [list] = await db.query(sql);
     res.json({
-      i_know_you_are_id: req.current_id,
       list: list,
     });
   } catch (error) {

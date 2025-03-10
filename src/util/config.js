@@ -2,7 +2,7 @@ module.exports = {
     config: {
         app_name : "POS-System",
         app_version : "1.0",
-        image_path : "C:/xampp/htdocs/POS_Phone_Shop_Images/",
+        image_path : "C:/xampp/htdocs/full_stack/POS_Phone_Shop_Images/",
         db : {
             HOST : "localhost",
             USER : "root",
