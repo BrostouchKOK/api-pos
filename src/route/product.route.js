@@ -17,7 +17,12 @@ module.exports = (app) => {
     uploadFile.single("image-upload"),
     create
   );
-  app.put("/api/product", validate_token(), update);
+  app.put(
+    "/api/product",
+    validate_token(),
+    uploadFile.single("image-upload"),
+    update
+  );
   app.delete("/api/product", validate_token(), remove);
   app.post("/api/new_barcode", validate_token(), barcode);
 };

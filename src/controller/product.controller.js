@@ -36,6 +36,7 @@ exports.getList = async (req, res) => {
   }
 };
 
+// create funtion
 exports.create = async (req, res) => {
   try {
     const barcodeExists = await this.isExistBarcode(req.body.barcode);
@@ -65,15 +66,50 @@ exports.create = async (req, res) => {
   }
 };
 
+// updare function
 exports.update = async (req, res) => {
   try {
-    const sql =
-      "UPDATE product SET name = :name, description = :description, status = :status WHERE id = :id"; // name param
+    const sql = `
+    UPDATE product SET
+    category_id = :category_id,
+    barcode = :barcode,
+    name = :name,
+    brand = :brand,
+    description = :description,
+    qty = :qty,
+    price = :price,
+    discount = :discount,
+    status = :status,
+    image = :image 
+    WHERE id = :id;
+  `;
+    var filename = req.body.image;
+    // image new
+    if (req.file) {
+      filename = req.file?.filename;
+    }
+
+    // image change
+    if (
+      req.body.image != "" &&
+      req.body.image != null &&
+      req.body.image != "null" &&
+      req.file
+    ) {
+      removeFile(req.body.image) // remove old image
+      filename = req.file?.filename
+    }
+
+    //image remove
+    if(req.body.image_remove == "1") {
+      removeFile(req.body.image); // remove image
+      filename = null;
+    }
+
     const [data] = await db.query(sql, {
-      id: req.body.id,
-      name: req.body.name,
-      description: req.body.description,
-      status: req.body.status,
+      ...req.body,
+      image : filename,
+      create_by : req.auth?.name,
     });
     res.json({
       data: data,
@@ -84,6 +120,7 @@ exports.update = async (req, res) => {
   }
 };
 
+// remove function
 exports.remove = async (req, res) => {
   try {
     const sql = "DELETE FROM product WHERE id = :id"; // name param
