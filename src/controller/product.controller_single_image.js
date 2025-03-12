@@ -38,19 +38,12 @@ exports.getList = async (req, res) => {
 
 // create funtion
 exports.create = async (req, res) => {
-  // console.log(req.files)
-  // res.json({
-  //   body : req.body,
-  //   files : req.files,
-  //   message : "Insert successfully",
-  // })
-
   try {
     const barcodeExists = await this.isExistBarcode(req.body.barcode);
     if (barcodeExists) {
       return res.json({
         error: {
-          barcode: "Barcode already exist",
+          barcode: "Barcode already exists",
         },
       });
     }
@@ -60,24 +53,9 @@ exports.create = async (req, res) => {
 
     const [data] = await db.query(sql, {
       ...req.body,
-      image: req.files?.image_upload[0].filename,
+      image: req.file?.filename,
       create_by: req.auth?.name,
     });
-    if (req.files && req.files?.image_upload_optoinal) {
-      paramImageProduct = [];
-      req.files?.image_upload_optoinal.map((item, index) => {
-        paramImageProduct.push([data?.insertId, item.filename]);
-      });
-      // var paramImageProduct = [
-      //   [1,"imageName"],
-      //   [1,"imageName"],
-      //   [1,"imageName"],
-      // ]
-      var sqlImageProduct = `INSERT INTO product_image (product_id,image) VALUES :data`;
-      var [dataImage] = await db.query(sqlImageProduct, {
-        data: paramImageProduct,
-      });
-    }
 
     res.json({
       data,
@@ -118,20 +96,20 @@ exports.update = async (req, res) => {
       req.body.image != "null" &&
       req.file
     ) {
-      removeFile(req.body.image); // remove old image
-      filename = req.file?.filename;
+      removeFile(req.body.image) // remove old image
+      filename = req.file?.filename
     }
 
     //image remove
-    if (req.body.image_remove == "1") {
+    if(req.body.image_remove == "1") {
       removeFile(req.body.image); // remove image
       filename = null;
     }
 
     const [data] = await db.query(sql, {
       ...req.body,
-      image: filename,
-      create_by: req.auth?.name,
+      image : filename,
+      create_by : req.auth?.name,
     });
     res.json({
       data: data,

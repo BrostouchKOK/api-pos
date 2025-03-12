@@ -14,19 +14,13 @@ module.exports = (app) => {
   app.post(
     "/api/product",
     validate_token(),
-    uploadFile.fields([
-      { name: "image_upload", maxCount: 1 },
-      { name: "image_upload_optoinal", maxCount: 5 },
-    ]),
+    uploadFile.single("image-upload"),
     create
   );
   app.put(
     "/api/product",
     validate_token(),
-    uploadFile.fields([
-      { name: "image_upload", maxCount: 1 },
-      { name: "image_upload_optoinal", maxCount: 5 },
-    ]),
+    uploadFile.single("image-upload"),
     update
   );
   app.delete("/api/product", validate_token(), remove);
