@@ -29,6 +29,7 @@ exports.getList = async (req, res) => {
         value: "Issues",
       },
     ];
+    const [expense_type] = await db.query("SELECT * FROM expense_type");
     const brand = [
       { label: "Apple", value: "Apple", country: "USA" },
       { label: "Samsung", value: "Samsung", country: "South Korea" },
@@ -46,6 +47,7 @@ exports.getList = async (req, res) => {
       supplier,
       purchase_status,
       brand,
+      expense_type,
     });
   } catch (error) {
     logError("config.getList", error, res);

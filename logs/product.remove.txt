@@ -1,4 +1,0 @@
-[12/03/2025 18:46:01] Error: Cannot delete or update a parent row: a foreign key constraint fails (`pos-phone-shop`.`product_image`, CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`))
-[12/03/2025 18:46:17] Error: Cannot delete or update a parent row: a foreign key constraint fails (`pos-phone-shop`.`product_image`, CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`))
-[12/03/2025 18:46:38] Error: Cannot delete or update a parent row: a foreign key constraint fails (`pos-phone-shop`.`product_image`, CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`))
-[12/03/2025 18:47:06] Error: Cannot delete or update a parent row: a foreign key constraint fails (`pos-phone-shop`.`product_image`, CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`))
