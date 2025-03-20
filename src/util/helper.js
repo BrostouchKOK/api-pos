@@ -3,6 +3,7 @@ const { logError } = require("./logError");
 const multer = require("multer");
 const fs = require("fs/promises");
 const { config } = require("./config");
+const path = require("path");
 
 exports.db = connection;
 exports.logError = logError;
@@ -19,7 +20,8 @@ exports.uploadFile = multer({
     filename: function (req, file, callback) {
       const uniqueSuffix = Date.now();
       +"-" + Math.round(Math.random() * 1e9);
-      callback(null, file.fieldname + "-" + uniqueSuffix);
+      const fileExt = path.extname(file.originalname); // Extract file extension
+      callback(null, file.fieldname + "-" + uniqueSuffix + fileExt);
     },
   }),
   limits: {

@@ -10,22 +10,22 @@ const { uploadFile } = require("../util/helper");
 
 module.exports = (app) => {
   // validate_token(),
-  app.get("/api/product", validate_token(), getList);
   app.post(
     "/api/product",
     validate_token(),
     uploadFile.fields([
-      { name: "image_upload", maxCount: 1 },
-      { name: "image_upload_optoinal", maxCount: 5 },
+      { name: "upload_image", maxCount: 1 },
+      { name: "upload_image_optional", maxCount: 4 },
     ]),
     create
   );
+  app.get("/api/product", validate_token(), getList);
   app.put(
     "/api/product",
     validate_token(),
     uploadFile.fields([
-      { name: "image_upload", maxCount: 1 },
-      { name: "image_upload_optoinal", maxCount: 5 },
+      { name: "upload_image", maxCount: 1 },
+      { name: "upload_image_optional", maxCount: 4 },
     ]),
     update
   );

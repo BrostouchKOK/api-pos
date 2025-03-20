@@ -3,7 +3,7 @@ const { db, logError } = require("../util/helper");
 exports.getList = async (req, res) => {
   try {
     const [category] = await db.query(
-      "SELECT id, name, description FROM category"
+      "SELECT id as value, name as label, description FROM category"
     );
     const [role] = await db.query("SELECT id, name, code FROM role");
     const [supplier] = await db.query("SELECT id, name, code FROM supplier");

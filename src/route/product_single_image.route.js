@@ -5,22 +5,22 @@ const {
   update,
   remove,
   barcode,
-} = require("../controller/product.controller");
+} = require("../controller/product_single_image.controller");
 const { uploadFile } = require("../util/helper");
 
 module.exports = (app) => {
   // validate_token(),
-  app.get("/api/product", validate_token(), getList);
   app.post(
     "/api/product",
     validate_token(),
-    uploadFile.single("image-upload"),
+    uploadFile.single("upload_image"),
     create
   );
+  app.get("/api/product", validate_token(), getList);
   app.put(
     "/api/product",
     validate_token(),
-    uploadFile.single("image-upload"),
+    uploadFile.single("upload_image"),
     update
   );
   app.delete("/api/product", validate_token(), remove);
